@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+
+  namenode:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}namenode:${DOCKER_HADOOP_VERSION:-local}
+    volumes:
+      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+    restart: always  
+    ports:
+      - "9870:9870"
+
+  datanode:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}datanode:${DOCKER_HADOOP_VERSION:-local}
+    volumes:
+      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+    ports:
+      - "9864:9864"
+    restart: always
+    depends_on:
+      - namenode
+
+  resourcemanager:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}resourcemanager:${DOCKER_HADOOP_VERSION:-local}
+    volumes:
+      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+    ports:
+      - "8088:8088"
+    restart: always
+    depends_on:
+      - namenode
+
+  nodemanager:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}nodemanager:${DOCKER_HADOOP_VERSION:-local}
+    volumes:
+      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+    ports:
+      - "8042:8042"
+    restart: always
+    depends_on:
+      - namenode
+      - resourcemanager
+
+  jobhistoryserver:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}jobhistoryserver:${DOCKER_HADOOP_VERSION:-local}
+    volumes:
+      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+    ports:
+      - "19888:19888"
+    restart: always
+    depends_on:
+      - namenode
+      - resourcemanager
+
+  headnode:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}headnode:${DOCKER_HADOOP_VERSION:-local}
+    volumes:
+      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+    restart: always
+    ports:
+      - "2222:22"
+    depends_on:
+      - namenode
+      - resourcemanager
+
+
+networks:
+  default:
+    driver: bridge

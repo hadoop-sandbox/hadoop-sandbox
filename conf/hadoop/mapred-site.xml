@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+  </property>
+  <property>
+    <name>mapreduce.application.classpath</name>
+    <value>$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.intermediate-done-dir</name>
+    <value>/mr-history/tmp</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.done-dir</name>
+    <value>/mr-history/done</value>
+  </property>
+</configuration>

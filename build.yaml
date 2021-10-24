@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  base:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}base:${DOCKER_HADOOP_VERSION:-local}
+    build: ./base
+
+  namenode:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}namenode:${DOCKER_HADOOP_VERSION:-local}
+    build: ./namenode
+    depends_on:
+      - base
+
+  datanode:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}datanode:${DOCKER_HADOOP_VERSION:-local}
+    build: ./datanode
+    depends_on:
+      - base
+
+  resourcemanager:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}resourcemanager:${DOCKER_HADOOP_VERSION:-local}
+    build: ./resourcemanager
+    depends_on:
+      - base
+
+  nodemanager:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}nodemanager:${DOCKER_HADOOP_VERSION:-local}
+    build: ./nodemanager
+    depends_on:
+      - base
+
+  jobhistoryserver:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}jobhistoryserver:${DOCKER_HADOOP_VERSION:-local}
+    build: ./jobhistoryserver
+    depends_on:
+      - base
+
+  headnode:
+    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}headnode:${DOCKER_HADOOP_VERSION:-local}
+    build: ./headnode
+    depends_on:
+      - base
