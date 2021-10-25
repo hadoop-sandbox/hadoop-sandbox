@@ -23,8 +23,8 @@ COPY --from=downloader /tini /tini
 COPY --from=downloader /etc/environment /etc/environment
 ENV HADOOP_HOME=/opt/hadoop
 RUN groupadd hadoop && \ 
-  useradd -ms /bin/bash user && \
-  echo "user:hadoop" | chpasswd && \
+  useradd -ms /bin/bash sandbox && \
+  echo "sandbox:sandbox" | chpasswd && \
   useradd -ms /bin/bash -G hadoop hdfs && \
   useradd -ms /bin/bash -G hadoop yarn && \
   useradd -ms /bin/bash -G hadoop mapred && \

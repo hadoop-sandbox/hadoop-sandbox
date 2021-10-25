@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}base:${DOCKER_HADOOP_VERSION:-local}
+FROM --platform=linux/amd64 ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-common:${DOCKER_HADOOP_VERSION:-local}
 USER hdfs
 WORKDIR /home/hdfs
 COPY --chown=root:root docker-entrypoint.sh /docker-entrypoint.sh

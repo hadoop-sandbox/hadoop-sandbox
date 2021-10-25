@@ -26,10 +26,10 @@ When the cluster is up and running, the following Web UIs can be accessed:
 
 ## Using the cluster
 
-A head node is running and can be accessed using SSH (username: user, password: hadoop):
+A head node is running and can be accessed using SSH (username: sandbox, password: sandbox):
 
 ```bash
-ssh ssh://user@localhost:2222/
+ssh ssh://sandbox@localhost:2222/
 ```
 
 ## Smoke test
@@ -38,21 +38,21 @@ Start the cluster and log on to head node (see above). You can run Teragen/Teras
 run Hadoop MapReduce jobs and read/write to HDFS. To generate a 9.3 GiB dataset you would use:
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar teragen 100000000 /user/user/teragen
+hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar teragen 100000000 /user/sandbox/teragen
 ```
 
 Teragen generates test data to be sorted by Terasort. To sort the generated dataset, you would use
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar terasort /user/user/teragen /user/user/terasort
+hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar terasort /user/sandbox/teragen /user/sandbox/terasort
 ```
 
 Terasort sorts the generated dataset and outputs the same dataset globally sorted. Teravalidate verifies that the dataset is
 globally sorted. You can run it like this:
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar teravalidate /user/user/terasort /user/user/teravalidate
+hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar teravalidate /user/sandbox/terasort /user/sandbox/teravalidate
 ```
 
-:warning: *WARNING* The data is stored on HDFS and could be spilled to disk. When running on macOS, you should ensure that Docker's /Disk image size/
+:warning: *WARNING*: The data is stored on HDFS and could be spilled to disk. When running on macOS, you should ensure that Docker's *Disk image size*
 is set to a capacity that can hold the dataset at least 3 times.

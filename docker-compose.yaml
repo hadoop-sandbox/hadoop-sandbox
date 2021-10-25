@@ -3,7 +3,7 @@ version: '3'
 services:
 
   namenode:
-    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}namenode:${DOCKER_HADOOP_VERSION:-local}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-namenode:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
     restart: always  
@@ -11,7 +11,7 @@ services:
       - "9870:9870"
 
   datanode:
-    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}datanode:${DOCKER_HADOOP_VERSION:-local}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
     ports:
@@ -21,7 +21,7 @@ services:
       - namenode
 
   resourcemanager:
-    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}resourcemanager:${DOCKER_HADOOP_VERSION:-local}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-resourcemanager:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
     ports:
@@ -31,7 +31,7 @@ services:
       - namenode
 
   nodemanager:
-    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}nodemanager:${DOCKER_HADOOP_VERSION:-local}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
     ports:
@@ -42,7 +42,7 @@ services:
       - resourcemanager
 
   jobhistoryserver:
-    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}jobhistoryserver:${DOCKER_HADOOP_VERSION:-local}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-mapred-jobhistoryserver:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
     ports:
@@ -53,7 +53,7 @@ services:
       - resourcemanager
 
   headnode:
-    image: ${DOCKER_ORG:-packet}/${DOCKER_PREFIX:-}headnode:${DOCKER_HADOOP_VERSION:-local}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
     restart: always
