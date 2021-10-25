@@ -52,7 +52,7 @@ services:
       - namenode
       - resourcemanager
 
-  headnode:
+  clientnode:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"

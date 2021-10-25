@@ -26,7 +26,7 @@ When the cluster is up and running, the following Web UIs can be accessed:
 
 ## Using the cluster
 
-A head node is running and can be accessed using SSH (username: sandbox, password: sandbox):
+A client node is running and can be accessed using SSH (username: sandbox, password: sandbox):
 
 ```bash
 ssh ssh://sandbox@localhost:2222/
@@ -34,7 +34,7 @@ ssh ssh://sandbox@localhost:2222/
 
 ## Smoke test
 
-Start the cluster and log on to head node (see above). You can run Teragen/Terasort/Teravalidate to see if the cluster is able to
+Start the cluster and log on to client node (see above). You can run Teragen/Terasort/Teravalidate to see if the cluster is able to
 run Hadoop MapReduce jobs and read/write to HDFS. To generate a 9.3 GiB dataset you would use:
 
 ```bash
