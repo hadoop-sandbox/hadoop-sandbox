@@ -59,3 +59,27 @@ hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
 
 :warning: *WARNING*: The data is stored on HDFS and could be spilled to disk. When running on macOS, you should ensure that Docker's *Disk image size*
 is set to a capacity that can hold the dataset at least 3 times.
+
+## Testing native code
+
+Loading of native code dependencies can be verified on the client node as well. To check, issue the following command:
+
+```bash
+hadoop checknative
+```
+
+The output should look like this:
+
+```
+2021-10-25 19:31:48,186 INFO bzip2.Bzip2Factory: Successfully loaded & initialized native-bzip2 library system-native
+2021-10-25 19:31:48,187 INFO zlib.ZlibFactory: Successfully loaded & initialized native-zlib library
+2021-10-25 19:31:48,207 INFO nativeio.NativeIO: The native code was built without PMDK support.
+Native library checking:
+hadoop:  true /opt/hadoop/lib/native/libhadoop.so.1.0.0
+zlib:    true /lib/x86_64-linux-gnu/libz.so.1
+zstd  :  true /lib/x86_64-linux-gnu/libzstd.so.1
+bzip2:   true /lib/x86_64-linux-gnu/libbz2.so.1
+openssl: true /lib/x86_64-linux-gnu/libcrypto.so
+ISA-L:   true /lib/x86_64-linux-gnu/libisal.so.2
+PMDK:    false The native code was built without PMDK support.
+```
