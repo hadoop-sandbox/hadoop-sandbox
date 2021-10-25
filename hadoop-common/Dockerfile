@@ -8,6 +8,8 @@ RUN curl -fsSLo "hadoop.tgz" "https://dlcdn.apache.org/hadoop/common/hadoop-3.3.
   chown -R root:root /opt/hadoop && \
   chmod -R g-w,o-w /opt/hadoop && \
   install -d -o root -g root -m 1777 /opt/hadoop/logs && \
+  rm -rf /opt/hadoop/etc/hadoop && \
+  install -d -o root -g root -m 755 /opt/hadoop/etc/hadoop && \
   rm hadoop.tgz
 RUN curl -fsSLo "tini" "https://github.com/krallin/tini/releases/download/v0.19.0/tini-amd64" && \
   echo "93dcc18adc78c65a028a84799ecf8ad40c936fdfc5f2a57b1acda5a8117fa82c  tini" | sha256sum -c && \
