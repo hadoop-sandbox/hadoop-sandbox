@@ -18,7 +18,7 @@ docker-compose up
 
 When the cluster is up and running, the following Web UIs can be accessed:
 
-* [Resource Manager](http://localhost:8042/node)
+* [Resource Manager](http://localhost:8088/cluster)
 * [Name Node](http://localhost:9870/dfshealth.html#tab-overview)
 * [Job History Server](http://localhost:19888/jobhistory)
 * [Data Node](http://localhost:9864/datanode.html)
