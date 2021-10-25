@@ -38,20 +38,23 @@ Start the cluster and log on to head node (see above). You can run Teragen/Teras
 run Hadoop MapReduce jobs and read/write to HDFS. To generate a 9.3 GiB dataset you would use:
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar teragen 100000000 /user/sandbox/teragen
+hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
+   teragen 100000000 /user/sandbox/teragen
 ```
 
 Teragen generates test data to be sorted by Terasort. To sort the generated dataset, you would use
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar terasort /user/sandbox/teragen /user/sandbox/terasort
+hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
+   terasort /user/sandbox/teragen /user/sandbox/terasort
 ```
 
 Terasort sorts the generated dataset and outputs the same dataset globally sorted. Teravalidate verifies that the dataset is
 globally sorted. You can run it like this:
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar teravalidate /user/sandbox/terasort /user/sandbox/teravalidate
+hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
+   teravalidate /user/sandbox/terasort /user/sandbox/teravalidate
 ```
 
 :warning: *WARNING*: The data is stored on HDFS and could be spilled to disk. When running on macOS, you should ensure that Docker's *Disk image size*
