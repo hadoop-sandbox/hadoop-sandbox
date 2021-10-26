@@ -5,7 +5,7 @@ services:
   namenode:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-namenode:${DOCKER_HADOOP_VERSION:-local}
     volumes:
-      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+      - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     restart: always  
     ports:
       - "9870:9870"
@@ -13,7 +13,7 @@ services:
   datanode:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_HADOOP_VERSION:-local}
     volumes:
-      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+      - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     ports:
       - "9864:9864"
     restart: always
@@ -23,7 +23,7 @@ services:
   resourcemanager:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-resourcemanager:${DOCKER_HADOOP_VERSION:-local}
     volumes:
-      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+      - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     ports:
       - "8088:8088"
     restart: always
@@ -33,7 +33,7 @@ services:
   nodemanager:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_HADOOP_VERSION:-local}
     volumes:
-      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+      - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     ports:
       - "8042:8042"
     restart: always
@@ -44,7 +44,7 @@ services:
   jobhistoryserver:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-mapred-jobhistoryserver:${DOCKER_HADOOP_VERSION:-local}
     volumes:
-      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+      - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     ports:
       - "19888:19888"
     restart: always
@@ -55,7 +55,7 @@ services:
   clientnode:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_HADOOP_VERSION:-local}
     volumes:
-      - "./conf/hadoop:/opt/hadoop/etc/hadoop:ro"
+      - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     restart: always
     ports:
       - "2222:22"

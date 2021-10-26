@@ -3,4 +3,4 @@ USER hdfs
 WORKDIR /home/hdfs
 COPY --chown=root:root docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
-CMD ["/opt/hadoop/bin/hdfs", "namenode"]
+CMD ["/hadoop/bin/hdfs", "namenode"]

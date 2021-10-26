@@ -3,13 +3,13 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /tmp
 RUN curl -fsSLo "hadoop.tgz" "https://dlcdn.apache.org/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz" && \
   echo "SHA512 (hadoop.tgz) = 2fd0bf74852c797dc864f373ec82ffaa1e98706b309b30d1effa91ac399b477e1accc1ee74d4ccbb1db7da1c5c541b72e4a834f131a99f2814b030fbd043df66" | sha512sum -c && \
-  tar -C /opt -xzf hadoop.tgz && \
-  mv "/opt/hadoop-3.3.1" /opt/hadoop && \
-  chown -R root:root /opt/hadoop && \
-  chmod -R g-w,o-w /opt/hadoop && \
-  install -d -o root -g root -m 1777 /opt/hadoop/logs && \
-  rm -rf /opt/hadoop/etc/hadoop && \
-  install -d -o root -g root -m 755 /opt/hadoop/etc/hadoop && \
+  tar -C / -xzf hadoop.tgz && \
+  mv "/hadoop-3.3.1" /hadoop && \
+  chown -R root:root /hadoop && \
+  chmod -R g-w,o-w /hadoop && \
+  install -d -o root -g root -m 1777 /hadoop/logs && \
+  rm -rf /hadoop/etc/hadoop && \
+  install -d -o root -g root -m 755 /hadoop/etc/hadoop && \
   rm hadoop.tgz
 RUN curl -fsSLo "tini" "https://github.com/krallin/tini/releases/download/v0.19.0/tini-amd64" && \
   echo "93dcc18adc78c65a028a84799ecf8ad40c936fdfc5f2a57b1acda5a8117fa82c  tini" | sha256sum -c && \
@@ -20,10 +20,10 @@ RUN chown root:root /etc/environment && \
   chmod 644 /etc/environment
  
 FROM --platform=linux/amd64 adoptopenjdk:8-jdk-hotspot-focal
-COPY --from=downloader /opt/hadoop /opt/hadoop
+COPY --from=downloader /hadoop /hadoop
 COPY --from=downloader /tini /tini
 COPY --from=downloader /etc/environment /etc/environment
-ENV HADOOP_HOME=/opt/hadoop
+ENV HADOOP_HOME=/hadoop
 RUN groupadd hadoop && \ 
   useradd -ms /bin/bash sandbox && \
   echo "sandbox:sandbox" | chpasswd && \

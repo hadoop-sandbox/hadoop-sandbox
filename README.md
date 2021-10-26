@@ -29,7 +29,7 @@ When the cluster is up and running, the following Web UIs can be accessed:
 A client node is running and can be accessed using SSH (username: sandbox, password: sandbox):
 
 ```bash
-ssh ssh://sandbox@localhost:2222/
+ssh -p 2222 sandbox@localhost
 ```
 
 ## Smoke test
@@ -38,14 +38,14 @@ Start the cluster and log on to client node (see above). You can run Teragen/Ter
 run Hadoop MapReduce jobs and read/write to HDFS. To generate a 9.3 GiB dataset you would use:
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    teragen 100000000 /user/sandbox/teragen
 ```
 
 Teragen generates test data to be sorted by Terasort. To sort the generated dataset, you would use
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    terasort /user/sandbox/teragen /user/sandbox/terasort
 ```
 
@@ -53,7 +53,7 @@ Terasort sorts the generated dataset and outputs the same dataset globally sorte
 globally sorted. You can run it like this:
 
 ```bash
-hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    teravalidate /user/sandbox/terasort /user/sandbox/teravalidate
 ```
 
@@ -75,7 +75,7 @@ The output should look like this:
 2021-10-25 19:31:48,187 INFO zlib.ZlibFactory: Successfully loaded & initialized native-zlib library
 2021-10-25 19:31:48,207 INFO nativeio.NativeIO: The native code was built without PMDK support.
 Native library checking:
-hadoop:  true /opt/hadoop/lib/native/libhadoop.so.1.0.0
+hadoop:  true /hadoop/lib/native/libhadoop.so.1.0.0
 zlib:    true /lib/x86_64-linux-gnu/libz.so.1
 zstd  :  true /lib/x86_64-linux-gnu/libzstd.so.1
 bzip2:   true /lib/x86_64-linux-gnu/libbz2.so.1
