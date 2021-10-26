@@ -2,6 +2,8 @@
 
 set -e
 
-"${HADOOP_HOME}/bin/hdfs" namenode -format -nonInteractive
+if ! "${HADOOP_HOME}/bin/hdfs" namenode -metadataVersion; then
+   "${HADOOP_HOME}/bin/hdfs" namenode -format -nonInteractive
+fi
 
 exec "$@"
