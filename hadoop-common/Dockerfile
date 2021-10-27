@@ -23,7 +23,9 @@ FROM --platform=linux/amd64 adoptopenjdk:8-jdk-hotspot-focal
 COPY --from=downloader /hadoop /hadoop
 COPY --from=downloader /tini /tini
 COPY --from=downloader /etc/environment /etc/environment
-ENV HADOOP_HOME=/hadoop
+ENV HADOOP_HOME="/hadoop" \
+  PATH="/hadoop/bin:/hadoop/sbin:${PATH}"
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN groupadd hadoop && \ 
   useradd -ms /bin/bash sandbox && \
   echo "sandbox:sandbox" | chpasswd && \
@@ -32,6 +34,8 @@ RUN groupadd hadoop && \
   useradd -ms /bin/bash -G hadoop mapred && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-upgrade --no-install-recommends libssl-dev libisal2 gosu && \
-  rm -rf /var/lib/apt/lists/*
-
-ENTRYPOINT ["/tini", "--"]
+  rm -rf /var/lib/apt/lists/* && \
+  chown root:root /docker-entrypoint.sh && \
+  chmod 755 /docker-entrypoint.sh
+WORKDIR /
+ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]

@@ -1,6 +1,5 @@
-#! /bin/bash
-
-set -e
+#!/usr/bin/env bash
+set -Eeo pipefail
 
 get_config_option() {
 	option="$1"
@@ -39,7 +38,7 @@ create_key() {
 
 	if echo "$hostkeys" | grep -x "$file" >/dev/null && \
 	   [ ! -f "$file" ] ; then
-		echo -n $msg
+		echo -n "$msg"
 		ssh-keygen -q -f "$file" -N '' "$@"
 		echo
 		if which restorecon >/dev/null 2>&1; then
@@ -67,5 +66,3 @@ create_keys
 
 gosu hdfs "${HADOOP_HOME}/bin/hdfs" dfs -mkdir -p /user/sandbox
 gosu hdfs "${HADOOP_HOME}/bin/hdfs" dfs -chown sandbox:sandbox /user/sandbox
-
-exec "$@"
