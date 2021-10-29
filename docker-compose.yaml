@@ -9,7 +9,7 @@ services:
       - "./data/namenode:/data"
     restart: always  
     ports:
-      - "9870:9870"
+      - "127.0.0.1:9870:9870"
 
   datanode:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_HADOOP_VERSION:-local}
@@ -17,7 +17,7 @@ services:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./data/datanode:/data"
     ports:
-      - "9864:9864"
+      - "127.0.0.1:9864:9864"
     restart: always
     depends_on:
       - namenode
@@ -27,7 +27,7 @@ services:
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     ports:
-      - "8088:8088"
+      - "127.0.0.1:8088:8088"
     restart: always
     depends_on:
       - namenode
@@ -37,7 +37,7 @@ services:
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     ports:
-      - "8042:8042"
+      - "127.0.0.1:8042:8042"
     restart: always
     depends_on:
       - namenode
@@ -48,7 +48,7 @@ services:
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     ports:
-      - "19888:19888"
+      - "127.0.0.1:19888:19888"
     restart: always
     depends_on:
       - namenode
@@ -62,7 +62,7 @@ services:
       - "./data/clientnode/ssh:/etc/ssh"
     restart: always
     ports:
-      - "2222:22"
+      - "127.0.0.1:2222:22"
     depends_on:
       - namenode
       - resourcemanager
