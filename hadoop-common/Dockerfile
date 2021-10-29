@@ -24,18 +24,20 @@ COPY --from=downloader /hadoop /hadoop
 COPY --from=downloader /tini /tini
 COPY --from=downloader /etc/environment /etc/environment
 ENV HADOOP_HOME="/hadoop" \
-  PATH="/hadoop/bin:/hadoop/sbin:${PATH}"
+  PATH="/hadoop/bin:/hadoop/sbin:${PATH}" \
+  HADOOP_OPTS="-Dhadoop.tmp.dir=/data"
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN groupadd hadoop && \ 
   useradd -ms /bin/bash sandbox && \
   echo "sandbox:sandbox" | chpasswd && \
-  useradd -ms /bin/bash -G hadoop hdfs && \
-  useradd -ms /bin/bash -G hadoop yarn && \
-  useradd -ms /bin/bash -G hadoop mapred && \
+  useradd -Ms /bin/bash -d / -G hadoop hdfs && \
+  useradd -Ms /bin/bash -d / -G hadoop yarn && \
+  useradd -Ms /bin/bash -d / -G hadoop mapred && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-upgrade --no-install-recommends libssl-dev libisal2 gosu && \
   rm -rf /var/lib/apt/lists/* && \
   chown root:root /docker-entrypoint.sh && \
-  chmod 755 /docker-entrypoint.sh
+  chmod 755 /docker-entrypoint.sh && \
+  install -d -o root -g hadoop -m 775 /data
 WORKDIR /
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]

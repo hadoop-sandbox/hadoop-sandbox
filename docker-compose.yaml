@@ -6,6 +6,7 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-namenode:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
+      - "./data/namenode:/data"
     restart: always  
     ports:
       - "9870:9870"
@@ -14,6 +15,7 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
+      - "./data/datanode:/data"
     ports:
       - "9864:9864"
     restart: always
@@ -56,6 +58,8 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
+      - "./data/clientnode/home:/home/sandbox"
+      - "./data/clientnode/ssh:/etc/ssh"
     restart: always
     ports:
       - "2222:22"
