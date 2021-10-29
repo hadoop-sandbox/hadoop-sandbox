@@ -17,4 +17,8 @@
     <name>yarn.log-aggregation-enable</name>
     <value>true</value>
   </property>
+  <property>
+    <name>yarn.nodemanager.remote-app-log-dir.groupname</name>
+    <value>hadoop</value>
+  </property>
 </configuration>
