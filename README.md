@@ -32,6 +32,41 @@ A client node is running and can be accessed using SSH (username: sandbox, passw
 ssh -p 2222 sandbox@localhost
 ```
 
+## SSH setup
+
+Always typing port and username can become quite tedious. You can configure your SSH client with a host in `~/.ssh/config`:
+
+```
+Host yarn
+  Hostname localhost
+  Port 2222
+  User sandbox
+  IdentityFile ~/.ssh/yarn
+```
+
+To enable password-less access to the client node, you can setup SSH keys.
+
+```bash
+ssh-keygen -f ~/.ssh/yarn
+```
+
+will create a key pair on your local machine. The key should be added to your local `ssh-agent`:
+
+```bash
+ssh-add -f ~/.ssh/yarn
+```
+
+The key has to be installed in the client node:
+
+```bash
+ssh-copy-id -i ~/.ssh/yarn yarn
+```
+
+To login to client node, you can then use
+```bash
+ssh yarn
+```
+
 ## Smoke test
 
 Start the cluster and log on to client node (see above). You can run Teragen/Terasort/Teravalidate to see if the cluster is able to
