@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-common:${DOCKER_HADOOP_VERSION:-local}
+FROM --platform=linux/amd64 ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-base:${DOCKER_HADOOP_VERSION:-local}
 COPY ./docker-entrypoint.d /docker-entrypoint.d
 RUN  apt-get update && \
    DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-upgrade --no-install-recommends openssh-server && \
