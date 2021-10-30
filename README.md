@@ -1,4 +1,4 @@
-# docker-yarn-cluster
+# Hadoop Sandbox
 
 A Hadoop Yarn cluster running in a docker-compose deployment.
 
