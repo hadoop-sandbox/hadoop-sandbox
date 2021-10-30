@@ -9,16 +9,12 @@ services:
       - "./data/namenode:/data"
     restart: always
     hostname: namenode
-    ports:
-      - "127.0.0.1:9870:9870"
 
   datanode:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./data/datanode:/data"
-    ports:
-      - "127.0.0.1:9864:9864"
     restart: always
     hostname: datanode
     depends_on:
@@ -28,8 +24,6 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-resourcemanager:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
-    ports:
-      - "127.0.0.1:8088:8088"
     restart: always
     hostname: resourcemanager
     depends_on:
@@ -39,8 +33,6 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
-    ports:
-      - "127.0.0.1:8042:8042"
     restart: always
     hostname: nodemanager
     depends_on:
@@ -51,8 +43,6 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-mapred-jobhistoryserver:${DOCKER_HADOOP_VERSION:-local}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
-    ports:
-      - "127.0.0.1:19888:19888"
     restart: always
     hostname: jobhistoryserver
     depends_on:
@@ -72,7 +62,30 @@ services:
     depends_on:
       - namenode
       - resourcemanager
+      - datanode
+      - nodemanager
+      - jobhistoryserver
 
+  front:
+    image: httpd:2.4
+    volumes:
+      - "./conf/front/conf:/usr/local/apache2/conf:ro"
+      - "./conf/front/htdocs:/usr/local/apache2/htdocs:ro"
+    restart: always
+    hostname: front
+    ports:
+      - "127.0.0.1:8042:8042"
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:8088:8088"
+      - "127.0.0.1:9864:9864"
+      - "127.0.0.1:9870:9870"
+      - "127.0.0.1:19888:19888"
+    depends_on:
+      - namenode
+      - resourcemanager
+      - datanode
+      - nodemanager
+      - jobhistoryserver
 
 networks:
   default:

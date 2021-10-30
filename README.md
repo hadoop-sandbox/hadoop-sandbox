@@ -14,16 +14,6 @@ docker-compose -f build.yaml build
 docker-compose up
 ```
 
-## WebUIs
-
-When the cluster is up and running, the following Web UIs can be accessed:
-
-* [Resource Manager](http://localhost:8088/cluster)
-* [Name Node](http://localhost:9870/dfshealth.html#tab-overview)
-* [Job History Server](http://localhost:19888/jobhistory)
-* [Data Node](http://localhost:9864/datanode.html)
-* [Node Manager](http://localhost:8042/node)
-
 ## Using the cluster
 
 A client node is running and can be accessed using SSH (username: sandbox, password: sandbox):
@@ -31,6 +21,16 @@ A client node is running and can be accessed using SSH (username: sandbox, passw
 ```bash
 ssh -p 2222 sandbox@localhost
 ```
+
+The different cluster service web user interfaces can be reached over:
+
+* [Overview page](http://localhost:8080)
+* [Resource Manager](http://localhost:8088/)
+* [Name Node](http://localhost:9870/)
+* [Job History Server](http://localhost:19888/)
+* [Data Node](http://localhost:9864/)
+* [Node Manager](http://localhost:8042/)
+
 
 ## SSH setup
 
