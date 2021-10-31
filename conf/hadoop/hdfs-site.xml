@@ -11,4 +11,12 @@
     <value>namenode:8020</value>
     <description>Namenode will be running on host "namenode"</description>
   </property>
+  <property>
+    <name>dfs.client.read.shortcircuit</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dfs.domain.socket.path</name>
+    <value>/run/hadoop-hdfs/dn_socket</value>
+  </property>
 </configuration>

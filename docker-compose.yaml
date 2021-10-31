@@ -14,9 +14,11 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_HADOOP_VERSION:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
-      - "./data/datanode:/data"
+      - "./data/hadoopnode/data:/data"
+      - "./data/hadoopnode/run.hadoop-hdfs:/run/hadoop-hdfs"
     restart: always
-    hostname: datanode
+    ipc: shareable
+    hostname: hadoopnode
     depends_on:
       - namenode
 
@@ -33,10 +35,14 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_HADOOP_VERSION:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
+      - "./data/hadoopnode/data:/data"
+      - "./data/hadoopnode/run.hadoop-hdfs:/run/hadoop-hdfs"
     restart: always
-    hostname: nodemanager
+    network_mode: service:datanode
+    ipc: service:datanode
     depends_on:
       - namenode
+      - datanode
       - resourcemanager
 
   jobhistoryserver:
