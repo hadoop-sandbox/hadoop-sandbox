@@ -2,11 +2,9 @@
 
 A Hadoop Yarn cluster running in a docker-compose deployment.
 
-## How to build
+## Docker images
 
-```bash
-docker-compose -f build.yaml build
-```
+The deployment uses the docker images created by [hadoop-sandbox-images](https://github.com/packet23/hadoop-sandbox-images).
 
 ## How to run
 
