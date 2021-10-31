@@ -4,7 +4,8 @@ A Hadoop Yarn cluster running in a docker-compose deployment.
 
 ## Docker images
 
-The deployment uses the docker images created by [hadoop-sandbox-images](https://github.com/packet23/hadoop-sandbox-images).
+The deployment uses the docker images created by
+[hadoop-sandbox-images](https://github.com/packet23/hadoop-sandbox-images).
 
 ## How to run
 
@@ -14,7 +15,8 @@ docker-compose up
 
 ## Using the cluster
 
-A client node is running and can be accessed using SSH (username: sandbox, password: sandbox):
+A client node is running and can be accessed using SSH (username:
+sandbox, password: sandbox):
 
 ```bash
 ssh -p 2222 sandbox@localhost
@@ -32,7 +34,8 @@ The different cluster service web user interfaces can be reached over:
 
 ## SSH setup
 
-Always typing port and username can become quite tedious. You can configure your SSH client with a host in `~/.ssh/config`:
+Always typing port and username can become quite tedious. You can
+configure your SSH client with a host in `~/.ssh/config`:
 
 ```
 Host yarn
@@ -42,13 +45,15 @@ Host yarn
   IdentityFile ~/.ssh/yarn
 ```
 
-To enable password-less access to the client node, you can setup SSH keys.
+To enable password-less access to the client node, you can setup SSH
+keys.
 
 ```bash
 ssh-keygen -f ~/.ssh/yarn
 ```
 
-will create a key pair on your local machine. The key should be added to your local `ssh-agent`:
+will create a key pair on your local machine. The key should be added
+to your local `ssh-agent`:
 
 ```bash
 ssh-add -f ~/.ssh/yarn
@@ -67,35 +72,42 @@ ssh yarn
 
 ## Smoke test
 
-Start the cluster and log on to client node (see above). You can run Teragen/Terasort/Teravalidate to see if the cluster is able to
-run Hadoop MapReduce jobs and read/write to HDFS. To generate a 9.3 GiB dataset you would use:
+:warning: *WARNING:* The following steps will need to store data on
+disk. When running on macOS, you should ensure that Docker's *Disk
+image size* is set to a capacity that can hold the dataset (9.3 GiB in
+the example) at least 3 times.
+
+Start the cluster and log on to client node (see above). You can run
+Teragen/Terasort/Teravalidate to see if the cluster is able to run
+Hadoop MapReduce jobs and read/write to HDFS. To generate a 9.3 GiB
+dataset you would use:
 
 ```bash
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    teragen 100000000 /user/sandbox/teragen
 ```
 
-Teragen generates test data to be sorted by Terasort. To sort the generated dataset, you would use
+Teragen generates test data to be sorted by Terasort. To sort the
+generated dataset, you would use
 
 ```bash
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    terasort /user/sandbox/teragen /user/sandbox/terasort
 ```
 
-Terasort sorts the generated dataset and outputs the same dataset globally sorted. Teravalidate verifies that the dataset is
-globally sorted. You can run it like this:
+Terasort sorts the generated dataset and outputs the same dataset
+globally sorted. Teravalidate verifies that the dataset is globally
+sorted. You can run it like this:
 
 ```bash
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    teravalidate /user/sandbox/terasort /user/sandbox/teravalidate
 ```
 
-:warning: *WARNING*: The data is stored on HDFS and could be spilled to disk. When running on macOS, you should ensure that Docker's *Disk image size*
-is set to a capacity that can hold the dataset at least 3 times.
-
 ## Testing native code
 
-Loading of native code dependencies can be verified on the client node as well. To check, issue the following command:
+Loading of native code dependencies can be verified on the client node
+as well. To check, issue the following command:
 
 ```bash
 hadoop checknative
