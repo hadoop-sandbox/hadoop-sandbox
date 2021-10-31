@@ -3,7 +3,7 @@ version: '3'
 services:
 
   namenode:
-    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-namenode:${DOCKER_HADOOP_VERSION:-latest}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-namenode:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./data/namenode:/data"
@@ -11,7 +11,7 @@ services:
     hostname: namenode
 
   datanode:
-    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_HADOOP_VERSION:-latest}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./data/hadoopnode/data:/data"
@@ -23,7 +23,7 @@ services:
       - namenode
 
   resourcemanager:
-    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-resourcemanager:${DOCKER_HADOOP_VERSION:-latest}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-resourcemanager:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     restart: always
@@ -32,7 +32,7 @@ services:
       - namenode
 
   nodemanager:
-    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_HADOOP_VERSION:-latest}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./data/hadoopnode/data:/data"
@@ -46,7 +46,7 @@ services:
       - resourcemanager
 
   jobhistoryserver:
-    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-mapred-jobhistoryserver:${DOCKER_HADOOP_VERSION:-latest}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-mapred-jobhistoryserver:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     restart: always
@@ -56,7 +56,7 @@ services:
       - resourcemanager
 
   clientnode:
-    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_HADOOP_VERSION:-latest}
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./data/clientnode/home:/home/sandbox"
