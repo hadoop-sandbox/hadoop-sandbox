@@ -9,6 +9,10 @@ The deployment uses the docker images created by
 
 ## How to run
 
+:warning: WARNING: Running the cluster requires docker-compose 1.27 or
+newer. The version in Ubuntu 20.04 LTS is too old, but newer versions
+can be installed using pip.
+
 ```bash
 docker-compose up
 ```
