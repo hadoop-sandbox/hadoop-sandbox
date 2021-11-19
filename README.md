@@ -5,11 +5,11 @@ A Hadoop Yarn cluster running in a docker-compose deployment.
 ## Docker images
 
 The deployment uses the docker images created by
-[hadoop-sandbox-images](https://github.com/packet23/hadoop-sandbox-images).
+[hadoop-sandbox-images](https://github.com/hadoop-sandbox/hadoop-sandbox-images).
 
 ## How to run
 
-:warning: WARNING: Running the cluster requires docker-compose 1.27 or
+:warning: Running the cluster requires docker-compose 1.27 or
 newer. The version in Ubuntu 20.04 LTS is too old, but newer versions
 can be installed using pip.
 
@@ -34,6 +34,7 @@ The different cluster service web user interfaces can be reached over:
 * [Job History Server](http://localhost:19888/)
 * [Data Node](http://localhost:9864/)
 * [Node Manager](http://localhost:8042/)
+* [WebHDFS UI](http://localhost:9870/explorer.html)
 
 
 ## SSH setup
@@ -76,7 +77,7 @@ ssh yarn
 
 ## Smoke test
 
-:warning: *WARNING:* The following steps will need to store data on
+:warning: The following steps will need to store data on
 disk. When running on macOS, you should ensure that Docker's *Disk
 image size* is set to a capacity that can hold the dataset (9.3 GiB in
 the example) at least 3 times.
@@ -108,7 +109,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    teravalidate /user/sandbox/terasort /user/sandbox/teravalidate
 ```
 
-## Testing native code
+## Native code smoke test
 
 Loading of native code dependencies can be verified on the client node
 as well. To check, issue the following command:
@@ -131,4 +132,24 @@ bzip2:   true /lib/x86_64-linux-gnu/libbz2.so.1
 openssl: true /lib/x86_64-linux-gnu/libcrypto.so
 ISA-L:   true /lib/x86_64-linux-gnu/libisal.so.2
 PMDK:    false The native code was built without PMDK support.
+```
+
+## Accessing Hdfs from Host via WebHDFS
+
+The example uses Python and [pywebhdfs](https://pypi.org/project/pywebhdfs/). To setup, create a venv and install
+pywebhdfs:
+
+```bash
+python -m venv .venv && \
+   . .venv/bin/activate && \
+   python -m pip install pywebhdfs
+```
+
+Then you should be able to list the directory contents of the sandbox user home:
+
+```python
+from pywebhdfs.webhdfs import PyWebHdfsClient
+client = PyWebHdfsClient(host="localhost", port=9870, user_name="sandbox")
+listing = client.list_dir("/user/sandbox")
+print(listing)
 ```
