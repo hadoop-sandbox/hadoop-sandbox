@@ -6,4 +6,9 @@
     <value>hdfs://namenode:8020</value>
     <description>Will be running a single namenode service on host "namenode"</description>
   </property>
+  <property>
+    <name>hadoop.tmp.dir</name>
+    <value>/data</value>
+    <description>data volume will be mounted to /data</description>
+  </property>
 </configuration>
