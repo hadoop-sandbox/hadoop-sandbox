@@ -48,6 +48,7 @@ Host yarn
   Port 2222
   User sandbox
   IdentityFile ~/.ssh/yarn
+  IdentitiesOnly yes
 ```
 
 To enable password-less access to the client node, you can setup SSH
@@ -67,7 +68,7 @@ ssh-add -f ~/.ssh/yarn
 The key has to be installed in the client node:
 
 ```bash
-ssh-copy-id -i ~/.ssh/yarn yarn
+ssh-copy-id -i ~/.ssh/yarn.pub yarn
 ```
 
 To login to client node, you can then use
