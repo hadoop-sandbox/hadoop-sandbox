@@ -15,7 +15,7 @@ services:
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./data/hadoopnode/data:/data"
-      - "./data/hadoopnode/run.hadoop-hdfs:/run/hadoop-hdfs"
+      - "dnsocket:/run/hadoop-hdfs"
     restart: always
     ipc: shareable
     hostname: hadoopnode
@@ -36,7 +36,7 @@ services:
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./data/hadoopnode/data:/data"
-      - "./data/hadoopnode/run.hadoop-hdfs:/run/hadoop-hdfs"
+      - "dnsocket:/run/hadoop-hdfs"
     restart: always
     network_mode: service:datanode
     ipc: service:datanode
@@ -96,3 +96,7 @@ services:
 networks:
   default:
     driver: bridge
+
+volumes:
+  dnsocket:
+    driver: local
