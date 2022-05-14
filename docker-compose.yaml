@@ -18,10 +18,6 @@ services:
       - "dnsocket:/run/hadoop-hdfs"
     restart: always
     ipc: shareable
-    security_opt:
-      - seccomp:unconfined
-    cap_add:
-      - SYS_ADMIN
     hostname: hadoopnode
     depends_on:
       - namenode
