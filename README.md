@@ -157,16 +157,9 @@ print(listing)
 
 ## Profiling using Async Profiler
 
-On Linux with Docker Engine, Yarn applications can be profiled using the
-[async-profiler](https://github.com/jvm-profiling-tools/async-profiler/releases).
-
-On the host, some kernel variables need to be set:
-```bash
-sysctl kernel.perf_event_paranoid=1
-sysctl kernel.kptr_restrict=0
-```
-
-Then fetch a release tarball of async-profiler and unpack on the client node (assuming your host is x86-64):
+Yarn applications can be profiled using the
+[async-profiler](https://github.com/jvm-profiling-tools/async-profiler/releases). First fetch a release tarball
+of async-profiler and unpack on the client node (assuming your host is x86-64):
 ```bash
 curl -fsSLo async-profiler.tar.gz https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.8/async-profiler-2.8-linux-x64.tar.gz
 echo "f3a52b167cfd59f740383c57cd9c6da5b0b4d8b0efb7d01510b2af1e0cd5472e *async-profiler.tar.gz" | sha256sum -c -
