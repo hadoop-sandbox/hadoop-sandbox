@@ -17,4 +17,12 @@
     <name>mapreduce.jobhistory.done-dir</name>
     <value>/mr-history/done</value>
   </property>
+  <property>
+    <name>mapreduce.jobhistory.address</name>
+    <value>jobhistoryserver:10020</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.webapp.address</name>
+    <value>jobhistoryserver:19888</value>
+  </property>
 </configuration>
