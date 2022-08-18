@@ -6,7 +6,7 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-namenode:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
-      - "./data/namenode:/data"
+      - "namenode:/data"
     restart: always
     hostname: namenode
 
@@ -14,7 +14,7 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
-      - "./data/hadoopnode/data:/data"
+      - "hadoopnode:/data"
       - "dnsocket:/run/hadoop-hdfs"
     restart: always
     ipc: shareable
@@ -35,7 +35,7 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
-      - "./data/hadoopnode/data:/data"
+      - "hadoopnode:/data"
       - "dnsocket:/run/hadoop-hdfs"
     restart: always
     network_mode: service:datanode
@@ -64,8 +64,8 @@ services:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_TAG:-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
-      - "./data/clientnode/home:/home/sandbox"
-      - "./data/clientnode/ssh:/etc/ssh"
+      - "clientnodehome:/home/sandbox"
+      - "clientnodessh:/etc/ssh"
     restart: always
     hostname: clientnode
     ports:
@@ -104,4 +104,7 @@ networks:
 
 volumes:
   dnsocket:
-    driver: local
+  hadoopnode:
+  namenode:
+  clientnodehome:
+  clientnodessh:
