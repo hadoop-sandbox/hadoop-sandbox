@@ -186,8 +186,39 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
 
 ## Breaking changes
 
-On 2022-08-18, writable volume mounts have been changed from `bind` to
-the default driver for docker volumes.
+### 2022-08-19 - Init
+
+PID 1 now runs an injected `docker-init` binary via `init: true` in
+the `docker-compose.yaml`. Previously, `tini` was included in the docker images.
+If you pulled the old images you will see
+
+```
+[WARN  tini (7)] Tini is not running as PID 1 and isn't registered as a child subreaper.
+```
+
+in logs. This is harmless and can easily be corrected by pulling latest images using
+
+```bash
+docker-compose pull
+docker-compose down
+docker-compose up
+```
+
+on `docker-compose` 1.x or
+
+```bash
+docker compose pull
+docker compose down
+docker compose up
+```
+
+on `docker-compose` 2.x respectively.
+
+
+### 2022-08-18 - Docker Volumes
+
+Writable volume mounts have been changed from `bind` to the default driver for
+docker volumes.
 
 That means:
 
@@ -207,7 +238,7 @@ Both alternatives are described below. You do not need to do anything
 unless you used the deployment before 2022-08-18.
 
 
-### Migration of old data
+#### Migration of old data
 
 If you used an older version of this deployment and would like to retain the data,
 you can follow these steps to transfer to the new deployment:
@@ -227,7 +258,7 @@ you can follow these steps to transfer to the new deployment:
 13. Remove old `bind` mounted data stored under `data/` subfolder on the host (might require `sudo`)
 
 
-### Remove old data
+#### Remove old data
 
 If you used an older version of this deployment and would like to start from scratch,
 you can follow these steps to remove old data:

@@ -8,6 +8,7 @@ services:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "namenode:/data"
     restart: always
+    init: true
     hostname: namenode
 
   datanode:
@@ -17,6 +18,7 @@ services:
       - "hadoopnode:/data"
       - "dnsocket:/run/hadoop-hdfs"
     restart: always
+    init: true
     ipc: shareable
     hostname: hadoopnode
     depends_on:
@@ -27,6 +29,7 @@ services:
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     restart: always
+    init: true
     hostname: resourcemanager
     depends_on:
       - namenode
@@ -38,6 +41,7 @@ services:
       - "hadoopnode:/data"
       - "dnsocket:/run/hadoop-hdfs"
     restart: always
+    init: true
     network_mode: service:datanode
     ipc: service:datanode
     security_opt:
@@ -55,6 +59,7 @@ services:
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     restart: always
+    init: true
     hostname: jobhistoryserver
     depends_on:
       - namenode
@@ -67,6 +72,7 @@ services:
       - "clientnodehome:/home/sandbox"
       - "clientnodessh:/etc/ssh"
     restart: always
+    init: true
     hostname: clientnode
     ports:
       - "127.0.0.1:2222:22"
@@ -83,6 +89,7 @@ services:
       - "./conf/front/conf:/usr/local/apache2/conf:ro"
       - "./conf/front/htdocs:/usr/local/apache2/htdocs:ro"
     restart: always
+    init: true
     hostname: front
     ports:
       - "127.0.0.1:8042:8042"
