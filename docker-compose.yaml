@@ -10,6 +10,29 @@ services:
     restart: always
     init: true
     hostname: namenode
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://localhost:9870/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+
+  namenode-jmx-exporter:
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}prometheus-jmx-exporter:${DOCKER_TAG:-latest}
+    volumes:
+      - "./conf/jmx_exporter/namenode/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
+    restart: always
+    init: true
+    network_mode: service:namenode
+    command: ["1128", "/etc/jmx_exporter/jmx_exporter.yaml"]
+    depends_on:
+      - namenode
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://localhost:1128/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
 
   datanode:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_TAG:-latest}
@@ -23,6 +46,29 @@ services:
     hostname: hadoopnode
     depends_on:
       - namenode
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://localhost:9864/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+
+  datanode-jmx-exporter:
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}prometheus-jmx-exporter:${DOCKER_TAG:-latest}
+    volumes:
+      - "./conf/jmx_exporter/datanode/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
+    restart: always
+    init: true
+    network_mode: service:datanode
+    command: ["1129", "/etc/jmx_exporter/jmx_exporter.yaml"]
+    depends_on:
+      - datanode
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://localhost:1129/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
 
   resourcemanager:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-resourcemanager:${DOCKER_TAG:-latest}
@@ -33,6 +79,29 @@ services:
     hostname: resourcemanager
     depends_on:
       - namenode
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://resourcemanager:8088/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+
+  resourcemanager-jmx-exporter:
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}prometheus-jmx-exporter:${DOCKER_TAG:-latest}
+    volumes:
+      - "./conf/jmx_exporter/resourcemanager/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
+    restart: always
+    init: true
+    network_mode: service:resourcemanager
+    command: ["1126", "/etc/jmx_exporter/jmx_exporter.yaml"]
+    depends_on:
+      - resourcemanager
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://localhost:1126/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
 
   nodemanager:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_TAG:-latest}
@@ -53,6 +122,29 @@ services:
       - namenode
       - datanode
       - resourcemanager
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://localhost:8042/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+
+  nodemanager-jmx-exporter:
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}prometheus-jmx-exporter:${DOCKER_TAG:-latest}
+    volumes:
+      - "./conf/jmx_exporter/nodemanager/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
+    restart: always
+    init: true
+    network_mode: service:datanode
+    command: ["1127", "/etc/jmx_exporter/jmx_exporter.yaml"]
+    depends_on:
+      - nodemanager
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://localhost:1127/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
 
   jobhistoryserver:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-mapred-jobhistoryserver:${DOCKER_TAG:-latest}
@@ -64,6 +156,30 @@ services:
     depends_on:
       - namenode
       - resourcemanager
+      - datanode
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://jobhistoryserver:19888/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+
+  jobhistoryserver-jmx-exporter:
+    image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}prometheus-jmx-exporter:${DOCKER_TAG:-latest}
+    volumes:
+      - "./conf/jmx_exporter/jobhistoryserver/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
+    restart: always
+    init: true
+    network_mode: service:jobhistoryserver
+    command: ["1130", "/etc/jmx_exporter/jmx_exporter.yaml"]
+    depends_on:
+      - jobhistoryserver
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://localhost:1130/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
 
   clientnode:
     image: ${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_TAG:-latest}
@@ -74,6 +190,9 @@ services:
     restart: always
     init: true
     hostname: clientnode
+    networks:
+      - default
+      - front
     ports:
       - "127.0.0.1:2222:22"
     depends_on:
@@ -82,6 +201,12 @@ services:
       - datanode
       - nodemanager
       - jobhistoryserver
+    healthcheck:
+      test: ["CMD", "bash", "-c", "ssh-keyscan localhost || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
 
   front:
     image: httpd:2.4
@@ -91,6 +216,9 @@ services:
     restart: always
     init: true
     hostname: front
+    networks:
+      - default
+      - front
     ports:
       - "127.0.0.1:8042:8042"
       - "127.0.0.1:8080:8080"
@@ -104,10 +232,16 @@ services:
       - datanode
       - nodemanager
       - jobhistoryserver
+    healthcheck:
+      test: ["CMD", "bash", "-c", "set -Eeu -o pipefail ; exec 3<>/dev/tcp/localhost/8080 && echo -ne 'GET / HTTP/1.1\\r\\nHost: localhost\\r\\n\\r\\n' >&3 && cat <&3 | head -n 1 | grep '^HTTP/1.1 200 OK' || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
 
 networks:
   default:
-    driver: bridge
+  front:
 
 volumes:
   dnsocket:

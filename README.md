@@ -1,24 +1,21 @@
 # Hadoop Sandbox
 
-A Hadoop Yarn cluster running in a docker-compose deployment.
+A Hadoop Yarn cluster running in a docker compose deployment.
+
 
 ## Docker images
 
 The deployment uses the docker images created by
-[hadoop-sandbox-images](https://github.com/hadoop-sandbox/hadoop-sandbox-images).
+* [hadoop-sandbox-images](https://github.com/hadoop-sandbox/hadoop-sandbox-images)
+* [prometheus-jmx-exporter-images](https://github.com/hadoop-sandbox/prometheus-jmx-exporter-images)
+
 
 ## How to run
 
-:warning: Running the cluster requires docker-compose 1.27 or
-newer. The version in Ubuntu 20.04 LTS is too old, but newer versions
-can be installed using pip.
+:warning: The following instructions require docker compose 2.x. The version in
+Ubuntu 20.04 LTS is too old, but newer versions can be installed following
+the instructions on [docs.docker.com](https://docs.docker.com/compose/install/).
 
-For docker-compose 1.x use:
-```bash
-docker-compose up
-```
-
-For docker-compose 2.x use:
 ```bash
 docker compose up
 ```
@@ -83,6 +80,7 @@ To login to client node, you can then use
 ssh yarn
 ```
 
+
 ## Smoke test
 
 :warning: The following steps will need to store data on
@@ -118,6 +116,7 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    teravalidate /user/sandbox/terasort /user/sandbox/teravalidate
 ```
 
+
 ## Native code smoke test
 
 Loading of native code dependencies can be verified on the client node
@@ -143,6 +142,7 @@ ISA-L:   true /lib/x86_64-linux-gnu/libisal.so.2
 PMDK:    false The native code was built without PMDK support.
 ```
 
+
 ## Accessing Hdfs from Host via WebHDFS
 
 The example uses Python and [pywebhdfs](https://pypi.org/project/pywebhdfs/). To setup, create a venv and install
@@ -162,6 +162,7 @@ client = PyWebHdfsClient(host="localhost", port=9870, user_name="sandbox")
 listing = client.list_dir("/user/sandbox")
 print(listing)
 ```
+
 
 ## Profiling using Async Profiler
 
@@ -199,20 +200,10 @@ If you pulled the old images you will see
 in logs. This is harmless and can easily be corrected by pulling latest images using
 
 ```bash
-docker-compose pull
-docker-compose down
-docker-compose up
-```
-
-on `docker-compose` 1.x or
-
-```bash
 docker compose pull
 docker compose down
 docker compose up
 ```
-
-on `docker-compose` 2.x respectively.
 
 
 ### 2022-08-18 - Docker Volumes
