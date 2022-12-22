@@ -10,11 +10,14 @@ The deployment uses the docker images created by
 * [prometheus-jmx-exporter-images](https://github.com/hadoop-sandbox/prometheus-jmx-exporter-images)
 
 
-## How to run
+## Prerequisites
 
-:warning: The following instructions require docker compose 2.x. The version in
-Ubuntu 20.04 LTS is too old, but newer versions can be installed following
-the instructions on [docs.docker.com](https://docs.docker.com/compose/install/).
+The deployment needs Docker compose 2.x. Older versions may work but are untested.
+Installation instructions for Docker compose are on
+[docs.docker.com](https://docs.docker.com/compose/install/).
+
+
+## How to run
 
 ```bash
 docker compose up
