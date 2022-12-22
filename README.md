@@ -173,8 +173,8 @@ Yarn applications can be profiled using the
 [async-profiler](https://github.com/jvm-profiling-tools/async-profiler/releases). First fetch a release tarball
 of async-profiler and unpack on the client node (assuming your host is x86-64):
 ```bash
-curl -fsSLo async-profiler.tgz 'https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.8.3/async-profiler-2.8.3-linux-x64.tar.gz'
-echo "bb41cda5a3b529c023f36d6a1d33439b786b9957a64971e553d0b22bd14dc13d *async-profiler.tgz" | sha256sum -c
+curl -fsSLo async-profiler.tgz 'https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.9/async-profiler-2.9-linux-x64.tar.gz'
+sha256sum -c <<<"b9a094bc480f233f72141b7793c098800054438e0e6cfe5b7f2fe13ef4ad11f0 *async-profiler.tgz"
 tar -xzf async-profiler.tgz --strip-components=1 --one-top-level=async-profiler
 ```
 
