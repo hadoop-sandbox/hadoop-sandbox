@@ -25,4 +25,8 @@
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>jobhistoryserver:19888</value>
   </property>
+  <property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>1536</value>
+  </property>
 </configuration>

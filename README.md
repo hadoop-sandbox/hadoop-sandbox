@@ -190,6 +190,19 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
 
 ## Breaking changes
 
+### 2024-04-01 - Hadoop 3.4.0
+
+Configuration has been adapted for Hadoop 3.4.0. New configuration is
+not tested against old Hadoop 3.3.x container images. When pulling the
+new config, make sure to pull the new images as well using
+
+```bash
+docker compose pull
+docker compose down
+docker compose up
+```
+
+
 ### 2022-08-19 - Init
 
 PID 1 now runs an injected `docker-init` binary via `init: true` in
