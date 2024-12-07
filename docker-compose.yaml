@@ -3,7 +3,7 @@ name: "hadoop-sandbox"
 services:
 
   namenode:
-    image: ${DOCKER_REG:-}${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-namenode:${DOCKER_TAG:-latest}
+    image: ${DOCKER_REG-}${DOCKER_ORG-packet23/}${DOCKER_PREFIX-}hadoop-hdfs-namenode:${DOCKER_TAG-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "namenode:/data"
@@ -18,7 +18,7 @@ services:
       start_period: 1m
 
   namenode-jmx-exporter:
-    image: ${DOCKER_PROM_REG:-}${DOCKER_PROM_ORG:-packet23}/${DOCKER_PROM_PREFIX:-}prometheus-jmx-exporter:${DOCKER_PROM_TAG:-latest}
+    image: ${DOCKER_PROM_REG-}${DOCKER_PROM_ORG-packet23/}${DOCKER_PROM_PREFIX-}prometheus-jmx-exporter:${DOCKER_PROM_TAG-latest}
     volumes:
       - "./conf/jmx_exporter/namenode/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
     restart: always
@@ -36,7 +36,7 @@ services:
       start_period: 1m
 
   datanode:
-    image: ${DOCKER_REG:-}${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-hdfs-datanode:${DOCKER_TAG:-latest}
+    image: ${DOCKER_REG-}${DOCKER_ORG-packet23/}${DOCKER_PREFIX-}hadoop-hdfs-datanode:${DOCKER_TAG-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "hadoopnode:/data"
@@ -56,7 +56,7 @@ services:
       start_period: 1m
 
   datanode-jmx-exporter:
-    image: ${DOCKER_PROM_REG:-}${DOCKER_PROM_ORG:-packet23}/${DOCKER_PROM_PREFIX:-}prometheus-jmx-exporter:${DOCKER_PROM_TAG:-latest}
+    image: ${DOCKER_PROM_REG-}${DOCKER_PROM_ORG-packet23/}${DOCKER_PROM_PREFIX-}prometheus-jmx-exporter:${DOCKER_PROM_TAG-latest}
     volumes:
       - "./conf/jmx_exporter/datanode/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
     restart: always
@@ -74,7 +74,7 @@ services:
       start_period: 1m
 
   resourcemanager:
-    image: ${DOCKER_REG:-}${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-resourcemanager:${DOCKER_TAG:-latest}
+    image: ${DOCKER_REG-}${DOCKER_ORG-packet23/}${DOCKER_PREFIX-}hadoop-yarn-resourcemanager:${DOCKER_TAG-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     restart: always
@@ -91,7 +91,7 @@ services:
       start_period: 1m
 
   resourcemanager-jmx-exporter:
-    image: ${DOCKER_PROM_REG:-}${DOCKER_PROM_ORG:-packet23}/${DOCKER_PROM_PREFIX:-}prometheus-jmx-exporter:${DOCKER_PROM_TAG:-latest}
+    image: ${DOCKER_PROM_REG-}${DOCKER_PROM_ORG-packet23/}${DOCKER_PROM_PREFIX-}prometheus-jmx-exporter:${DOCKER_PROM_TAG-latest}
     volumes:
       - "./conf/jmx_exporter/resourcemanager/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
     restart: always
@@ -109,7 +109,7 @@ services:
       start_period: 1m
 
   nodemanager:
-    image: ${DOCKER_REG:-}${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-yarn-nodemanager:${DOCKER_TAG:-latest}
+    image: ${DOCKER_REG-}${DOCKER_ORG-packet23/}${DOCKER_PREFIX-}hadoop-yarn-nodemanager:${DOCKER_TAG-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "hadoopnode:/data"
@@ -138,7 +138,7 @@ services:
       start_period: 1m
 
   nodemanager-jmx-exporter:
-    image: ${DOCKER_PROM_REG:-}${DOCKER_PROM_ORG:-packet23}/${DOCKER_PROM_PREFIX:-}prometheus-jmx-exporter:${DOCKER_PROM_TAG:-latest}
+    image: ${DOCKER_PROM_REG-}${DOCKER_PROM_ORG-packet23/}${DOCKER_PROM_PREFIX-}prometheus-jmx-exporter:${DOCKER_PROM_TAG-latest}
     volumes:
       - "./conf/jmx_exporter/nodemanager/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
     restart: always
@@ -156,7 +156,7 @@ services:
       start_period: 1m
 
   jobhistoryserver:
-    image: ${DOCKER_REG:-}${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-mapred-jobhistoryserver:${DOCKER_TAG:-latest}
+    image: ${DOCKER_REG-}${DOCKER_ORG-packet23/}${DOCKER_PREFIX-}hadoop-mapred-jobhistoryserver:${DOCKER_TAG-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
     restart: always
@@ -177,7 +177,7 @@ services:
       start_period: 1m
 
   jobhistoryserver-jmx-exporter:
-    image: ${DOCKER_PROM_REG:-}${DOCKER_PROM_ORG:-packet23}/${DOCKER_PROM_PREFIX:-}prometheus-jmx-exporter:${DOCKER_PROM_TAG:-latest}
+    image: ${DOCKER_PROM_REG-}${DOCKER_PROM_ORG-packet23/}${DOCKER_PROM_PREFIX-}prometheus-jmx-exporter:${DOCKER_PROM_TAG-latest}
     volumes:
       - "./conf/jmx_exporter/jobhistoryserver/jmx_exporter.yaml:/etc/jmx_exporter/jmx_exporter.yaml:ro"
     restart: always
@@ -195,7 +195,7 @@ services:
       start_period: 1m
 
   clientnode:
-    image: ${DOCKER_REG:-}${DOCKER_ORG:-packet23}/${DOCKER_PREFIX:-}hadoop-client:${DOCKER_TAG:-latest}
+    image: ${DOCKER_REG-}${DOCKER_ORG-packet23/}${DOCKER_PREFIX-}hadoop-client:${DOCKER_TAG-latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "clientnodehome:/home/sandbox"
@@ -227,7 +227,7 @@ services:
       start_period: 1m
 
   front:
-    image: ${DOCKER_REG:-}httpd:2.4
+    image: ${DOCKER_REG-}httpd:2.4
     volumes:
       - "./conf/front/conf:/usr/local/apache2/conf:ro"
       - "./conf/front/htdocs:/usr/local/apache2/htdocs:ro"
