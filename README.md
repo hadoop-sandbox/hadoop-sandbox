@@ -86,7 +86,7 @@ ssh yarn
 
 ## Smoke test
 
-> [!WARNING|
+> [!WARNING]
 > The following steps will need to store data on
 > disk. When running the container runtime in a virtual machine
 > (i.e. Docker for mac, Rancher-Desktop), you should ensure that
