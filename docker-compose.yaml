@@ -207,7 +207,7 @@ services:
       - default
       - front
     ports:
-      - "127.0.0.1:2222:22"
+      - "${LISTEN_ADDRESS-127.0.0.1}:2222:22"
     depends_on:
       namenode:
         condition: service_healthy
@@ -228,6 +228,8 @@ services:
 
   front:
     image: ${DOCKER_REG-}httpd:2.4
+    environment:
+      LISTEN_HOST: "${LISTEN_HOST-localhost}"
     volumes:
       - "./conf/front/conf:/usr/local/apache2/conf:ro"
       - "./conf/front/htdocs:/usr/local/apache2/htdocs:ro"
@@ -238,12 +240,12 @@ services:
       - default
       - front
     ports:
-      - "127.0.0.1:8042:8042"
-      - "127.0.0.1:8080:8080"
-      - "127.0.0.1:8088:8088"
-      - "127.0.0.1:9864:9864"
-      - "127.0.0.1:9870:9870"
-      - "127.0.0.1:19888:19888"
+      - "${LISTEN_ADDRESS-127.0.0.1}:8042:8042"
+      - "${LISTEN_ADDRESS-127.0.0.1}:8080:8080"
+      - "${LISTEN_ADDRESS-127.0.0.1}:8088:8088"
+      - "${LISTEN_ADDRESS-127.0.0.1}:9864:9864"
+      - "${LISTEN_ADDRESS-127.0.0.1}:9870:9870"
+      - "${LISTEN_ADDRESS-127.0.0.1}:19888:19888"
     depends_on:
       namenode:
         condition: service_healthy

@@ -5,11 +5,11 @@
   <body>
     <h1>Single node Yarn cluster</h1>
     <ul>
-      <li><a href="http://localhost:8088/">Resource Manager</a></li>
-      <li><a href="http://localhost:9870/">Name Node</a></li>
-      <li><a href="http://localhost:8042/">Node Manager</a></li>
-      <li><a href="http://localhost:9864/">Data Node</a></li>
-      <li><a href="http://localhost:19888/">Job History Server</a></li>
+      <li><a href="http://<!--#echo var="LISTEN_HOST" -->:8088/">Resource Manager</a></li>
+      <li><a href="http://<!--#echo var="LISTEN_HOST" -->:9870/">Name Node</a></li>
+      <li><a href="http://<!--#echo var="LISTEN_HOST" -->:8042/">Node Manager</a></li>
+      <li><a href="http://<!--#echo var="LISTEN_HOST" -->:9864/">Data Node</a></li>
+      <li><a href="http://<!--#echo var="LISTEN_HOST" -->:19888/">Job History Server</a></li>
     </ul>
     <h1>Metrics</h1>
     <ul>

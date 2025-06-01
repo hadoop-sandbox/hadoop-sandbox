@@ -86,11 +86,12 @@ ssh yarn
 
 ## Smoke test
 
-:warning: The following steps will need to store data on
-disk. When running the container runtime in a virtual machine
-(i.e. Docker for mac, Rancher-Desktop), you should ensure that
-the container runtime has enough storage capacity to store the
-test dataset (9.3 GiB) at least 3 times.
+> [!WARNING|
+> The following steps will need to store data on
+> disk. When running the container runtime in a virtual machine
+> (i.e. Docker for mac, Rancher-Desktop), you should ensure that
+> the container runtime has enough storage capacity to store the
+> test dataset (9.3 GiB) at least 3 times.
 
 Start the cluster and log on to client node (see above). You can run
 Teragen/Terasort/Teravalidate to see if the cluster is able to run
@@ -185,6 +186,26 @@ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
   -files async-profiler/build/libasyncProfiler.so \
   -D '"mapred.child.java.opts=-agentpath:libasyncProfiler.so=start,event=cpu,simple,title=@taskid@,file=$(dirname $STDOUT_LOGFILE_ENV)/@taskid@.html,log=$(dirname $STDOUT_LOGFILE_ENV)/@taskid@-profiler.log"' \
   /user/sandbox/teragen /user/sandbox/terasort
+```
+
+
+## Exposing to the network
+
+> [!WARNING]
+> Exposing the cluster is not recommended and should only be done in private networks.
+
+By default, the cluster is reachable only from host machine. There are two variables that can be defined to
+make it reachable over the network as well:
+
+* `LISTEN_ADDRESS` - the IP address on which SSH and the different WebUI are listening for requests
+* `LISTEN_HOST` - the host name under which SSH and the WebUI can be reached
+
+If for instance `myhostname.example` resolves to the IP address of the host, the following `.env` file
+will configure the cluster to be exposed under this name and listen on all addresses of the host:
+
+```shell
+LISTEN_ADDRESS="0.0.0.0"
+LISTEN_HOST="myhostname.example"
 ```
 
 
