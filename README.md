@@ -84,6 +84,24 @@ ssh yarn
 ```
 
 
+## Deployment settings
+
+These configuration variables can be customized via a `.env` file:
+
+| Variable name            | Default value                                                  | Description                                          |
+|--------------------------|----------------------------------------------------------------|------------------------------------------------------|
+| `NAMENODE_IMAGE`         | `ghcr.io/hadoop-sandbox/hadoop-hdfs-namenode:latest`           | Container image for the HDFS Namenode                |
+| `DATANODE_IMAGE`         | `ghcr.io/hadoop-sandbox/hadoop-hdfs-datanode:latest`           | Container image for the HDFS Datanode                |
+| `RESOURCEMANAGER_IMAGE`  | `ghcr.io/hadoop-sandbox/hadoop-yarn-resourcemanager:latest`    | Container image for the YARN Resource manager        |
+| `NODEMANAGER_IMAGE`      | `ghcr.io/hadoop-sandbox/hadoop-yarn-nodemanager:latest`        | Container image for the YARN Node manager            |
+| `JOBHISTORYSERVER_IMAGE` | `ghcr.io/hadoop-sandbox/hadoop-mapred-jobhistoryserver:latest` | Container image for the MapReduce Job history server |
+| `CLIENT_IMAGE`           | `ghcr.io/hadoop-sandbox/hadoop-client:latest`                  | Container image for the client node                  |
+| `JMX_EXPORTER_IMAGE`     | `ghcr.io/hadoop-sandbox/prometheus-jmx-exporter:latest`        | Container image for the JMX exporter                 |
+| `HTTPD_IMAGE`            | `httpd:2.4`                                                    | Container image for the Apache Httpd front           |
+| `LISTEN_ADDRESS`         | `127.0.0.1`                                                    | Address to expose ports on host machine              |
+| `LISTEN_HOST`            | `localhost`                                                    | Hostname pointing to listen address                  |
+
+
 ## Smoke test
 
 > [!WARNING]
