@@ -5,7 +5,7 @@ A Hadoop Yarn cluster running in a docker compose deployment.
 
 ## Docker images
 
-The deployment uses the docker images created by
+The deployment uses the docker images created from
 * [hadoop-sandbox-images](https://github.com/hadoop-sandbox/hadoop-sandbox-images)
 * [prometheus-jmx-exporter-images](https://github.com/hadoop-sandbox/prometheus-jmx-exporter-images)
 
@@ -86,7 +86,7 @@ ssh yarn
 
 ## Deployment settings
 
-These configuration variables can be customized via a `.env` file:
+These configuration variables can be customized via an `.env` file:
 
 | Variable name            | Default value                                                  | Description                                          |
 |--------------------------|----------------------------------------------------------------|------------------------------------------------------|
@@ -295,7 +295,7 @@ you can follow these steps to transfer to the new deployment:
 4. Stop the old deployment
 5. Update the deployment via `git pull`
 6. Start the new deployment
-7. Clear SSH's `known_hosts` file via `ssh-keygen  '[localhost]:2222'`
+7. Clear SSH's `known_hosts` file via `ssh-keygen -R '[localhost]:2222'`
 8. Update your `known_hosts` file via `ssh -p 2222 sandbox@localhost true`
 9. Upload old data via SSH: `ssh -p 2222 sandbox@localhost tar -xf - < sandbox.tar`
 10. Upload old HDFS data to HDFS via `ssh -p 2222 sandbox@localhost hdfs dfs -copyFromLocal hdfs-data /user/sandbox`
@@ -311,7 +311,7 @@ you can follow these steps to remove old data:
 
 1. Update the deployment via `git pull`
 2. Start the deployment
-3. Clear SSH's `known_hosts` file via `ssh-keygen  '[localhost]:2222'`
+3. Clear SSH's `known_hosts` file via `ssh-keygen -R '[localhost]:2222'`
 4. Update your `known_hosts` file via `ssh -p 2222 sandbox@localhost true`
 5. Install your SSH key via `ssh-copy-id -i ~/.ssh/yarn.pub -p 2222 sandbox@localhost`
-5. Remove old `bind` mounted data stored under `data/` subfolder on the host (might require `sudo`)
+6. Remove old `bind` mounted data stored under `data/` subfolder on the host (might require `sudo`)
