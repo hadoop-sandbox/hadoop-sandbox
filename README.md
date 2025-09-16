@@ -58,7 +58,7 @@ Host yarn
   IdentitiesOnly yes
 ```
 
-To enable password-less access to the client node, you can setup SSH
+To enable password-less access to the client node, you can set up SSH
 keys.
 
 ```bash
@@ -78,7 +78,7 @@ The key has to be installed in the client node:
 ssh-copy-id -i ~/.ssh/yarn.pub yarn
 ```
 
-To login to client node, you can then use
+To log in to client node, you can then use
 ```bash
 ssh yarn
 ```
@@ -167,7 +167,7 @@ PMDK:    false The native code was built without PMDK support.
 
 ## Accessing Hdfs from Host via WebHDFS
 
-The example uses Python and [pywebhdfs](https://pypi.org/project/pywebhdfs/). To setup, create a venv and install
+The example uses Python and [pywebhdfs](https://pypi.org/project/pywebhdfs/). To set up, create a venv and install
 pywebhdfs:
 
 ```bash
