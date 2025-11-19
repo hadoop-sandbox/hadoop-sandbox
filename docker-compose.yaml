@@ -198,6 +198,7 @@ services:
     image: ${CLIENT_IMAGE-ghcr.io/hadoop-sandbox/hadoop-client:latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
+      - "./conf/spark:/spark/conf:ro"
       - "clientnodehome:/home/sandbox"
       - "clientnodessh:/etc/ssh"
     restart: always
