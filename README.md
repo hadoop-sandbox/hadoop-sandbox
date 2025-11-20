@@ -104,6 +104,8 @@ These configuration variables can be customized via an `.env` file:
 
 ## Smoke test
 
+### Hadoop MapReduce
+
 > [!WARNING]
 > The following steps will need to store data on
 > disk. When running the container runtime in a virtual machine
@@ -136,6 +138,16 @@ sorted. You can run it like this:
 ```bash
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar \
    teravalidate /user/sandbox/terasort /user/sandbox/teravalidate
+```
+
+### Spark
+
+Start a basic Spark job:
+
+```bash
+spark-submit --class org.apache.spark.examples.SparkPi \
+    /spark/examples/jars/spark-examples*.jar \
+    10
 ```
 
 

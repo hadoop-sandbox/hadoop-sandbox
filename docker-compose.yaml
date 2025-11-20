@@ -109,7 +109,7 @@ services:
       start_period: 1m
 
   nodemanager:
-    image: ${NODEMANAGER_IMAGE-ghcr.io/hadoop-sandbox/hadoop-yarn-nodemanager:latest}
+    image: ${NODEMANAGER_IMAGE-ghcr.io/hadoop-sandbox/hadoop-yarn-nodemanager-spark:latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "hadoopnode:/data"
@@ -195,7 +195,7 @@ services:
       start_period: 1m
 
   clientnode:
-    image: ${CLIENT_IMAGE-ghcr.io/hadoop-sandbox/hadoop-client:latest}
+    image: ${CLIENT_IMAGE-ghcr.io/hadoop-sandbox/hadoop-client-spark:latest}
     volumes:
       - "./conf/hadoop:/hadoop/etc/hadoop:ro"
       - "./conf/spark:/spark/conf:ro"
