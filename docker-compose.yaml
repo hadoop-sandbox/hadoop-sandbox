@@ -176,6 +176,28 @@ services:
       retries: 3
       start_period: 1m
 
+  sparkhistoryserver:
+    image: ${SPARKHISTORYSERVER_IMAGE-ghcr.io/hadoop-sandbox/spark-historyserver:latest}
+    volumes:
+      - "./conf/hadoop:/hadoop/etc/hadoop:ro"
+      - "./conf/spark:/spark/conf:ro"
+    restart: always
+    init: true
+    hostname: sparkhistoryserver
+    depends_on:
+      namenode:
+        condition: service_healthy
+      resourcemanager:
+        condition: service_healthy
+      datanode:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "bash", "-c", "curl -f http://sparkhistoryserver:18080/ || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+
   jobhistoryserver-jmx-exporter:
     image: ${JMX_EXPORTER_IMAGE-ghcr.io/hadoop-sandbox/prometheus-jmx-exporter:latest}
     volumes:
@@ -247,6 +269,7 @@ services:
       - "${LISTEN_ADDRESS-127.0.0.1}:9864:9864"
       - "${LISTEN_ADDRESS-127.0.0.1}:9870:9870"
       - "${LISTEN_ADDRESS-127.0.0.1}:19888:19888"
+      - "${LISTEN_ADDRESS-127.0.0.1}:18080:18080"
     depends_on:
       namenode:
         condition: service_healthy
@@ -257,6 +280,8 @@ services:
       nodemanager:
         condition: service_healthy
       jobhistoryserver:
+        condition: service_healthy
+      sparkhistoryserver:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "bash", "-c", "set -Eeu -o pipefail ; exec 3<>/dev/tcp/localhost/8080 && echo -ne 'GET / HTTP/1.1\\r\\nHost: localhost\\r\\n\\r\\n' >&3 && cat <&3 | head -n 1 | grep '^HTTP/1.1 200 OK' || exit 1"]

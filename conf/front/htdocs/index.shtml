@@ -9,7 +9,8 @@
       <li><a href="http://<!--#echo var="LISTEN_HOST" -->:9870/">Name Node</a></li>
       <li><a href="http://<!--#echo var="LISTEN_HOST" -->:8042/">Node Manager</a></li>
       <li><a href="http://<!--#echo var="LISTEN_HOST" -->:9864/">Data Node</a></li>
-      <li><a href="http://<!--#echo var="LISTEN_HOST" -->:19888/">Job History Server</a></li>
+      <li><a href="http://<!--#echo var="LISTEN_HOST" -->:19888/">MapReduce History Server</a></li>
+      <li><a href="http://<!--#echo var="LISTEN_HOST" -->:18080/">Spark History Server</a></li>
     </ul>
     <h1>Metrics</h1>
     <ul>

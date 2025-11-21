@@ -38,7 +38,8 @@ The different cluster service web user interfaces can be reached over:
 * [Overview page](http://localhost:8080)
 * [Resource Manager](http://localhost:8088/)
 * [Name Node](http://localhost:9870/)
-* [Job History Server](http://localhost:19888/)
+* [MapReduce History Server](http://localhost:19888/)
+* [Spark History Server](http://localhost:18080/)
 * [Data Node](http://localhost:9864/)
 * [Node Manager](http://localhost:8042/)
 * [WebHDFS UI](http://localhost:9870/explorer.html)
@@ -146,6 +147,7 @@ Start a basic Spark job:
 
 ```bash
 spark-submit --class org.apache.spark.examples.SparkPi \
+    --deploy-mode cluster \
     /spark/examples/jars/spark-examples*.jar \
     10
 ```

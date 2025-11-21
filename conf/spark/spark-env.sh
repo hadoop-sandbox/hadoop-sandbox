@@ -79,11 +79,8 @@
 # - SPARK_BEELINE_OPTS, to set config properties only for the beeline cli (e.g. "-Dx=y")
 # - SPARK_BEELINE_MEMORY, Memory for beeline (e.g. 1000M, 2G) (Default: 1G)
 
-ARCH=$(dpkg --print-architecture)
-
-JAVA_HOME="/usr/lib/jvm/java-17-openjdk-${ARCH}"
+JAVA_HOME="/usr/lib/jvm/java-17-openjdk"
 HADOOP_CONF_DIR="/hadoop/etc/hadoop"
-SPARK_CONF_DIR="/spark/conf/${ARCH}"
 
 export JAVA_HOME HADOOP_CONF_DIR SPARK_CONF_DIR
 
